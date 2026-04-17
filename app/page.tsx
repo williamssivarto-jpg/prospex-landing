@@ -972,6 +972,7 @@ Worth a quick conversation?`,
                   <textarea placeholder="e.g. We sell CRM software to retail brands, targeting heads of marketing at mid-market fashion companies..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
                 </div>
                 <button className="form-submit" onClick={(e) => handleSubmit(e as any)}>Request Demo Run</button>
+              </>
             )}
           </div>
         </div>
