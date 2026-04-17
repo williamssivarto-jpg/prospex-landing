@@ -50,9 +50,23 @@ Worth a quick conversation?`,
     },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    try {
+      const res = await fetch('/api/prospex-demo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        throw new Error('Form submission failed');
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      console.error('Form submission failed', err);
+    }
   };
 
   return (
@@ -957,8 +971,7 @@ Worth a quick conversation?`,
                   <label>What are you selling and who to?</label>
                   <textarea placeholder="e.g. We sell CRM software to retail brands, targeting heads of marketing at mid-market fashion companies..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
                 </div>
-                <button className="form-submit" onClick={handleSubmit}>Request Demo Run</button>
-              </>
+                <button className="form-submit" onClick={(e) => handleSubmit(e as any)}>Request Demo Run</button>
             )}
           </div>
         </div>
